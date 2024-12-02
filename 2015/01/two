@@ -1,0 +1,28 @@
+#!/usr/bin/env zsh
+
+set -eu -o pipefail
+
+position=0
+floor=1
+
+while read direction; do
+  position=$(( position + 1 ))
+
+  case $direction in
+    '(')
+      # Don't need to handle the zero case here. We exit as soon as we enter the basement, so we'll never come back up.
+      floor=$(( floor + 1 ))
+      printf '%-4d -> up to floor %d\n' $position $floor
+      ;;
+    ')')
+      floor=$(( floor - 1 ))
+
+      if [[ $floor -eq 0 ]]; then
+        printf '%-4d -> down to the basement\n' $position
+        exit
+      else
+        printf '%-4d -> down to floor %d\n' $position $floor
+      fi
+      ;;
+  esac
+done < <( fold -w1 )

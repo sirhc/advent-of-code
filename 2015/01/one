@@ -1,0 +1,12 @@
+#!/usr/bin/env zsh
+
+set -eu -o pipefail
+
+read -r up _ down _ <<< "$( fold -w1 | sort | uniq -c | paste - - )"
+
+# Sanity check. There should be 7000 instructions in the input.
+[[ $(( up + down )) == 7000 ]]
+
+# A trivial solution. It doesn't matter the order in which the floors are traversed, because the final floor is the
+# same.
+print $(( up - down ))
