@@ -1,0 +1,20 @@
+#!/usr/bin/env perl
+
+use strict;
+use v5.30;
+
+my $total = 0;
+
+while (<>) {
+  chomp;
+
+  my @dim   = sort { $a <=> $b } split 'x';
+  my $area  = 2 * $dim[0] * $dim[1] + 2 * $dim[0] * $dim[2] + 2 * $dim[1] * $dim[2];
+  my $slack = $dim[0] * $dim[1];
+
+  # say sprintf '%8s -> %4d + %3d -> %4d', ( join 'x', @dim ), $area, $slack, $area + $slack;
+
+  $total += $area + $slack;
+}
+
+say $total;
