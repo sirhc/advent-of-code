@@ -1,0 +1,47 @@
+#!/usr/bin/env perl
+
+use strict;
+use v5.30;
+use List::MoreUtils qw( pairwise );
+
+my @position  = ( 0, 0 );
+my $heading   = 0;
+my %translate = (
+  0   => [  0,  1 ],  # north
+  90  => [  1,  0 ],  # east
+  180 => [  0, -1 ],  # south
+  270 => [ -1,  0 ],  # west
+);
+
+my %locations = ('(0, 0)' => 1);  # we automatically visit our starting location
+
+# My mistake the first time was assuming a visited location was only the destination of each instruction. However, the
+# example on the page indicates that each point traveled through counts as a visited location.
+
+while ( my $line = <> ) {
+  chomp $line;
+
+  while ( $line =~ /([RL])(\d+)/g ) {
+    my ( $turn, $distance ) = ( $1, $2 );
+
+    say sprintf '(%d, %d) -> %s%d (from %d)', @position, $turn, $distance, $heading;
+
+    $heading = ( $heading + 90 ) % 360 if $turn eq 'R';
+    $heading = ( $heading - 90 ) % 360 if $turn eq 'L';
+
+    while ( $distance > 0 ) {
+      @position = pairwise { $a + $b } @position, @{ $translate{ $heading } };
+      $distance -= 1;
+
+      my $key = sprintf '(%d, %d)', @position;
+
+      if ( defined $locations{ $key } ) {
+        say $key;
+        say abs($position[0]) + abs($position[1]);
+        exit;
+      }
+
+      $locations{ $key } = 1;
+    }
+  }
+}
