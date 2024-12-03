@@ -7,6 +7,7 @@ use Algorithm::Permute;
 
 my %distance;
 my $shortest;
+my $longest;
 
 while ( my $line = <> ) {
   chomp $line;
@@ -48,6 +49,11 @@ while ( my @places = $p->next ) {
   if ( !defined $shortest || $distance < $shortest ) {
     $shortest = $distance;
   }
+
+  if ( !defined $longest || $distance > $longest ) {
+    $longest = $distance;
+  }
 }
 
 say $shortest;
+say $longest;
