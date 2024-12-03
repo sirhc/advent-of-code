@@ -1,0 +1,53 @@
+#!/usr/bin/env perl
+
+use strict;
+use v5.30;
+use List::MoreUtils qw( pairwise );
+
+# The surrounding rows and columns are just there to simplify the comparisons.
+my $keypad = [
+  [ ' ', ' ', ' ', ' ', ' ', ' ', ' ' ],
+  [ ' ', ' ', ' ', '1', ' ', ' ', ' ' ],
+  [ ' ', ' ', '2', '3', '4', ' ', ' ' ],
+  [ ' ', '5', '6', '7', '8', '9', ' ' ],
+  [ ' ', ' ', 'A', 'B', 'C', ' ', ' ' ],
+  [ ' ', ' ', ' ', 'D', ' ', ' ', ' ' ],
+  [ ' ', ' ', ' ', ' ', ' ', ' ', ' ' ],
+];
+
+# Start on the 5 key.
+my @position = ( 3, 1 );
+
+# Note, these are different than in part one. The keypad array is indexed differently than the coordinate system I used
+# there.
+my %translate = (
+  'U' => [-1,  0],
+  'D' => [ 1,  0],
+  'L' => [ 0, -1],
+  'R' => [ 0,  1],
+);
+
+my @code;
+
+say sprintf 'S (%d, %d) -> %s', @position, $keypad->[ $position[0] ]->[ $position[1] ];
+
+while (<>) {
+  chomp;
+
+  for my $move ( split // ) {
+    my @next_position = pairwise { $a + $b } @position, @{ $translate{ $move } };
+
+    if ( $keypad->[ $next_position[0] ]->[ $next_position[1] ] ne ' ' ) {
+      @position = @next_position;
+    }
+
+    say sprintf '%s (%d, %d) -> %s', $move, @position, $keypad->[ $position[0] ]->[ $position[1] ];
+  }
+
+  say '---';
+
+  push @code, $keypad->[ $position[0] ]->[ $position[1] ];
+}
+
+say '';
+say join '', @code;
