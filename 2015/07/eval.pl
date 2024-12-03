@@ -3,7 +3,7 @@
 use v5.40;
 use strict;
 
-use Memoize;
+use Memoize qw( memoize flush_cache );
 
 # This will run for a very, very long time if we recalculate the values each time. Once we know the value of a wire, we
 # can just reuse it.
@@ -60,4 +60,12 @@ while ( my $line = <> ) {
 #   say "$wire: ", evaluate($wire);
 # }
 
+# Part One
+my $a = evaluate('a');
+say 'a: ', $a;
+say '';
+
+# Part Two
+$diagram{'b'} = $a;
+flush_cache('evaluate');
 say 'a: ', evaluate('a');
