@@ -1,0 +1,5 @@
+#!/usr/bin/env zsh
+
+set -eu -o pipefail
+
+grep -Po '\bmul\(\d+,\d+\)|\bdo(?:n'"'"'t)?\(\)' | sed -e '/^don'"'"'t()$/,/^do()$/d' -e '/^do()$/d' | sed -e 's/^mul(//' -e 's/)$//' -e 's/,/*/' | paste -sd+ | bc
