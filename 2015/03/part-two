@@ -1,0 +1,40 @@
+#!/usr/bin/env perl
+
+use strict;
+use v5.34;
+
+my $num_santas = 2;                                   # let's generalize this!
+my @positions  = map { [ 0, 0 ] } 1 .. $num_santas;
+my %visits     = ( '0,0' => $num_santas );            # someone is very lucky
+
+my %movement = (
+  '^' => [  0,  1 ],  # x, y
+  'v' => [  0, -1 ],
+  '>' => [  1,  0 ],
+  '<' => [ -1,  0 ],
+);
+
+while ( my $line = <> ) {
+  chomp $line;
+
+  while ( length $line > 0 ) {
+    my @moves = split //, substr $line, 0, $num_santas;
+    $line = substr $line, $num_santas;
+
+    for my $i ( 0 .. $num_santas - 1 ) {
+      my $move = $moves[$i];
+      my $position = $positions[$i];
+
+      printf 'Santa #%d: (%d, %d) %s ', $i, @{ $position }, $move;
+
+      @{ $position } = map { $position->[$_] + $movement{$move}[$_] } 0, 1;
+      $visits{ join ',', @{ $position } } += 1;
+
+      printf '(%d, %d) #%d', @{ $position }, $visits{ join ',', @{ $position } };
+      printf "\n";
+    }
+  }
+}
+
+printf "\n";
+printf "Houses visited: %d\n", scalar keys %visits;
