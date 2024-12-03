@@ -12,3 +12,10 @@ Difference: 1371
 ```
 
 ## Part Two
+
+```
+❯ perl space.pl input
+Code:   6489
+Memory: 5118 (difference: 1371)
+Escape: 8606 (difference: 2117)
+```

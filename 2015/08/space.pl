@@ -5,16 +5,10 @@ use strict;
 
 my $c_length = 0;  # code chars
 my $m_length = 0;  # memory chars
+my $e_length = 0;  # escaped chars
 
-while ( my $line = <> ) {
-  chomp $line;
-
-  # say $line;
-
-  # The number of characters in the code is straight forward. WYSIWYG.
-  $c_length += length $line;
-
-  # The size in memory requires a bit of interpretation.
+sub to_memory {
+  my ( $line ) = @_;
 
   # First, remove the outer quotes.
   $line =~ s/^"//;
@@ -27,11 +21,36 @@ while ( my $line = <> ) {
   # possible values, since we already took care of the \x case above. Anything else is a single char.
   $line =~ s/\\(.)/$1/g;
 
-  $m_length += length $line;
-
-  # say $line;
+  return $line;
 }
 
-say "Code:       $c_length";
-say "Memory:     $m_length";
-say "Difference: @{[ $c_length - $m_length ]}";
+sub to_escape {
+  my ( $line ) = @_;
+
+  # Start by removing the surrounding quotes. This is just to make it easier to uniformly handle the quotes.
+  $line =~ s/^"//;
+  $line =~ s/"$//;
+
+  # Now backslashes can be escaped.
+  $line =~ s/\\/\\\\/g;
+
+  # But now we've effectively unescaped the quotes. This is why they were removed earlier.
+  $line =~ s/"/\\"/g;
+
+  # Now we need to replace the (escaped) quotes and wrap the whole thing in a new set of quotes.
+  $line = '"\"' . $line . '\""';
+
+  return $line;
+}
+
+while ( my $line = <> ) {
+  chomp $line;
+
+  $c_length += length $line; # the number of characters in the code is straight forward, WYSIWYG
+  $m_length += length to_memory($line);
+  $e_length += length to_escape($line);
+}
+
+say "Code:   $c_length";
+say "Memory: $m_length (difference: @{[ $c_length - $m_length ]})";
+say "Escape: $e_length (difference: @{[ $e_length - $c_length ]})";
