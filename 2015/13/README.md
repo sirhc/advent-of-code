@@ -21,7 +21,7 @@ https://adventofcode.com/2015/day/13
 ## Part Two
 
 ```
-❯ perl happiness.pl input2 | sort -n | tail
+❯ perl happiness.pl input input2 | sort -n | tail
  725 : Eric -> Carol -> Frank -> Bob -> Alice -> Mallory -> Me -> George -> David
  725 : Eric -> David -> George -> Me -> Mallory -> Alice -> Bob -> Frank -> Carol
  725 : Frank -> Bob -> Alice -> Mallory -> Me -> George -> David -> Eric -> Carol
