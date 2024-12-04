@@ -12,3 +12,9 @@ hepxxyzz
 ```
 
 ## Part 2
+
+```
+❯ perl password.pl hepxcrrq | head -2
+hepxxyzz
+heqaabcc
+```

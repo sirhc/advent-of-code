@@ -3,6 +3,8 @@
 use v5.40;
 use strict;
 
+$|++;
+
 my $password = $ARGV[0];
 my $pattern  = join '|', map { $_ . chr(ord($_) + 1) . chr(ord($_) + 2) } 'a' .. 'x';  # abc|bcd|cde|...|xyz
 
@@ -23,5 +25,4 @@ while ( 1 ) {
   next unless scalar @{[ $password =~ /(?:(.)\1)/g ]} >= 2;
 
   say $password;
-  last;
 }
