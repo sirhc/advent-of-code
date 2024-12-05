@@ -22,7 +22,9 @@ readme:
   cd {{ invocation_directory() }}
   read -r year day <<<"$( <<< "$PWD" awk -F / '{ print $(NF - 1), +$NF }' )"
   echo -n '# '
-  curl -fsSL --cookie "session=$session" https://adventofcode.com/$year/day/$day | pup 'h2 text{}' | sed -e 's/ *--- *//g'
+  curl -fsSL --cookie "session=$session" https://adventofcode.com/$year/day/$day | pup 'h2 text{}' | sed -e 's/ *--- *//g' | head -1
+  echo
+  echo https://adventofcode.com/$year/day/$day
   echo
   echo '## Part One'
   echo
