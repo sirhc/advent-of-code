@@ -24,5 +24,19 @@ perl operators.pl input  13.82s user 0.01s system 99% cpu 13.889 total 13k max r
 
 ## Part Two
 
+I probably could have done some work to prune the search space.
+
 ```
+❯ head input | perl operators2.pl
+1358
+1464
+19284295257
+2864344343820
+2385120
+160267179632
+248910
+
+❯ perl operators2.pl input | paste -sd+ | bc
+492383931650959
+perl operators2.pl input  626.45s user 0.31s system 99% cpu 10:29.34 total 181k max rss
 ```
