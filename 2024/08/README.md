@@ -2,6 +2,8 @@
 
 https://adventofcode.com/2024/day/8
 
+## Part One
+
 Since it's been a long, long time since I have done any actual algebra, let's use a slightly expanded version of the
 first example to work the problem from first principles.
 
@@ -61,8 +63,6 @@ This leads to the general formula for antinodes.
 n = (r1 + dr, c1 + dc), (r2 - dr, c2 - dc)
 ```
 
-## Part One
-
 Oh hey, it worked.
 
 ```
@@ -81,5 +81,19 @@ Oh hey, it worked.
 
 ## Part Two
 
+So this should be simple enough. We already calculated the row and column distance, so we just need to mark every
+location from the first node to the end of the map.
+
 ```
+❯ perl antinode2.pl input | tail
+##.#.#.....###.#..##...##.######.##.##.##.###..###
+..####.##........#.#####.####.##..##..###.#.####..
+#..#.##.........##...#.###..#.#.#...#.#.##.#.#.##.
+..#.##..##..#.#.####.......####.##...####.##..#...
+.##.#....#..#####....#..#.#...###.####.##.....##..
+#....###.#.......#.#.#..##..####.###.#.###.....##.
+#...##.##....###......##..#...#.#.#.#..##.#.#.#..#
+.#..##..####..##.##.##...###..#..#..###...#####.#.
+
+1285
 ```
