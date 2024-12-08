@@ -36,8 +36,21 @@ readme:
   echo '```'
   echo '```'
 
+# Generate the Perl template I always start with
+@start:
+  echo '#!/usr/bin/env perl'
+  echo
+  echo 'use v5.40;'
+  echo 'use strict;'
+  echo
+  echo 'while ( my $line = <> ) {'
+  echo '  chomp $line;'
+  echo '  $line =~ m//;'
+  echo '}'
+
 # Set up README.md and input for today's puzzle
 [no-cd]
 setup:
   [[ -e README.md ]] || just readme > README.md
   [[ -e input ]] || just input > input
+  [[ -e start.pl ]] || just start > start.pl
