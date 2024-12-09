@@ -16,4 +16,9 @@ perl start.pl input  1.89s user 0.02s system 98% cpu 1.927 total 49k max rss
 ## Part Two
 
 ```
+❯ perl score2.pl example | sort -n | tail -1
+57600000
+
+❯ perl score2.pl input | sort -n | tail -1
+15862900
 ```
