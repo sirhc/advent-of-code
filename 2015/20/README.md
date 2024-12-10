@@ -37,4 +37,6 @@ perl presents.pl $(( input / d ))  0.77s user 0.01s system 99% cpu 0.777 total 7
 ## Part Two
 
 ```
+❯ perl presents2.pl $( cat input )
+House 831600 got 35780206 presents.
 ```
