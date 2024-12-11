@@ -40,5 +40,15 @@ Initial arrangement:
 
 ## Part Two
 
+Yeah, that worked great for 25 stones and the ability to print out the list of stones at each step. I did get a hint
+from Reddit about how to think about the problem. Obvious in retrospect.
+
+Also, memoization is amazing.
+
 ```
+❯ perl stones2.pl 25 input
+183248
+
+❯ perl stones2.pl 75 input
+218811774248729
 ```
