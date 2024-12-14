@@ -67,3 +67,10 @@ A = ( 5400 - ( ( 8400 * 34 - 5400 * 94 ) / ( -1 * 67 * 94 + 22 * 34 ) ) * 67 ) /
 A = ( yP - ( ( xP * yA - yP * xA ) / ( -1 * yB * xA + xB * yA ) ) * yB ) / yA
 B = ( xP * yA - yP * xA ) / ( -1 * yB * xA + xB * yA )
 ```
+
+On the plus side, it runs really fast.
+
+```
+❯ perl play2.pl input | tail -1
+{ tokens => 102718967795500 }
+```
