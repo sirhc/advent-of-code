@@ -42,5 +42,28 @@ Anyway, the brute force solution was easy enough.
 
 ## Part Two
 
+Yup, there it is. Fine, I'll do the math. Going back to the first example, we have two equations. We will arbitrarily
+solve for `A` in the second equation and substitute the result into the first to obtain `B`.
+
 ```
+A * 94 + B * 22 = 8400
+A * 34 + B * 67 = 5400
+
+A * 34 + B * 67 = 5400
+         A * 34 = 5400 - B * 67
+              A = ( 5400 - B * 67 ) / 34
+
+                      A * 94 + B * 22 = 8400
+ ( 5400 - B * 67 ) / 34 * 94 + B * 22 = 8400
+ ( 5400 - B * 67 ) * 94 + B * 22 * 34 = 8400 * 34
+5400 * 94 - B * 67 * 94 + B * 22 * 34 = 8400 * 34
+          - B * 67 * 94 + B * 22 * 34 = 8400 * 34 - 5400 * 94
+       B * ( -1 * 67 * 94 + 22 * 34 ) = 8400 * 34 - 5400 * 94
+                                    B = ( 8400 * 34 - 5400 * 94 ) / ( -1 * 67 * 94 + 22 * 34 )
+
+A = ( 5400 - B * 67 ) / 34
+A = ( 5400 - ( ( 8400 * 34 - 5400 * 94 ) / ( -1 * 67 * 94 + 22 * 34 ) ) * 67 ) / 34
+
+A = ( yP - ( ( xP * yA - yP * xA ) / ( -1 * yB * xA + xB * yA ) ) * yB ) / yA
+B = ( xP * yA - yP * xA ) / ( -1 * yB * xA + xB * yA )
 ```
