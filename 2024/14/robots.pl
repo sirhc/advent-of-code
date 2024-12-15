@@ -6,9 +6,9 @@ use strict;
 use List::Util qw( product );
 use Data::Dump;
 
-my $width   = shift @ARGV // 101;
-my $height  = shift @ARGV // 103;
-my $seconds = shift @ARGV // 100;
+my $width   =   shift @ARGV // 101;
+my $height  =   shift @ARGV // 103;
+my $seconds = ( shift @ARGV // 100 ) + 0;
 my @robots  = map { [ [ @$_[ 0, 1 ] ], [ @$_[ 2, 3 ] ] ] } map { [ m/p=(\d+),(\d+) v=(-?\d+),(-?\d+)/ ] } split /\n/, do { local $/; <> };  # p=0,4 v=3,-3
 
 # $robots[$i] = [ [ $x, $y ], [ $vx, $vy ] ];
@@ -19,7 +19,7 @@ my $mid_width  = int( $width  / 2 );
 my $mid_height = int( $height / 2 );
 
 # dd { width  => $width, height => $height, seconds => $seconds, robots => \@robots };
-print_tiles( 'Initial state:' );
+# print_tiles( 'Initial state:' );
 
 for my $robot ( @robots ) {
   $robot->[0][0] = ( $robot->[0][0] + $robot->[1][0] * $seconds ) % $width;
@@ -29,9 +29,9 @@ for my $robot ( @robots ) {
 # dd { width  => $width, height => $height, seconds => $seconds, robots => \@robots };
 print_tiles( "After $seconds @{[ $seconds == 1 ? 'second' : 'seconds' ]}:" );
 
-my %quadrants = map { $_ => 0 } 1 .. 4;
-$quadrants{$_} += 1 for grep { $_ > 0 } map { quadrant( @{ $_->[0] } ) } @robots;
-dd { quadrants => \%quadrants, safety_factor => product values %quadrants };
+# my %quadrants = map { $_ => 0 } 1 .. 4;
+# $quadrants{$_} += 1 for grep { $_ > 0 } map { quadrant( @{ $_->[0] } ) } @robots;
+# dd { quadrants => \%quadrants, safety_factor => product values %quadrants };
 
 sub print_tiles {
   my ( $title ) = @_;
@@ -45,22 +45,22 @@ sub print_tiles {
     print "\n";
   }
 
-  say '';
+  # say '';
 
   # Print the map again, with the quadrants.
-  for my $row ( 0 .. $height - 1 ) {
-    if ( $row == $mid_height ) {
-      say '';
-      next;
-    }
+  # for my $row ( 0 .. $height - 1 ) {
+  #   if ( $row == $mid_height ) {
+  #     say '';
+  #     next;
+  #   }
 
-    for my $col ( 0 .. $width - 1 ) {
-      print map { $col == $mid_width ? ' ' : $_ } map { $_ > 0 ? $_ : '.' } scalar grep { $_->[0][1] == $row && $_->[0][0] == $col } @robots;
-    }
-    print "\n";
-  }
+  #   for my $col ( 0 .. $width - 1 ) {
+  #     print map { $col == $mid_width ? ' ' : $_ } map { $_ > 0 ? $_ : '.' } scalar grep { $_->[0][1] == $row && $_->[0][0] == $col } @robots;
+  #   }
+  #   print "\n";
+  # }
 
-  say '';
+  # say '';
 }
 
 # Not that it really matters, but this is how I'm treating the quadrants. A value of 0 means the coordinate is in one of
