@@ -50,7 +50,7 @@ readme:
 
 # Set up README.md and input for today's puzzle
 [no-cd]
-setup:
+setup start="start.pl":
   [[ -e README.md ]] || just readme > README.md
   [[ -e input ]] || just input > input
-  [[ -e start.pl ]] || just start > start.pl
+  [[ -e start.pl ]] || just start > {{ start }}
