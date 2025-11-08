@@ -5,7 +5,8 @@ use strict;
 
 use Data::Dump;
 
-my %register = ( a => 0, b => 0 );
+# my %register = ( a => 0, b => 0 );  # part 1
+my %register = ( a => 1, b => 0 );  # part 2
 
 # instruction->( [0]pointer, [1...]instruction )
 my %instruction = (
