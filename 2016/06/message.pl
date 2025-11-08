@@ -5,25 +5,28 @@ use strict;
 
 use Data::Dump;
 
-my @input   = map { chomp; [ split // ] } <>;
-my @message = ();
+my @input = map { chomp; [ split // ] } <>;
+my @code  = ();
 
 for my $x ( 0 .. $#{ $input[0] } ) {
   for my $y ( 0 .. $#input ) {
-    $message[$x][$y] = $input[$y][$x];
+    $code[$x][$y] = $input[$y][$x];
   }
 }
 
-# dd [ \@input, \@message ];
+# dd [ \@input, \@code ];
 
-print extract_letter(@$_) for @message;
-print "\n";
+my @message = map { extract_letters(@$_) }  @code;
 
-sub extract_letter {
+dd \@message;
+
+sub extract_letters {
   my @column = @_;
 
   my %count;
   do { $count{$_}++ } for @column;
+  # dd \%count;
 
-  return ${[ sort { $count{$b} <=> $count{$a} } keys %count ]}[0];
+  my @letters = sort { $count{$b} <=> $count{$a} } keys %count;
+  return [ $letters[0], $letters[-1] ];
 }
