@@ -34,7 +34,15 @@ push @stack, dclone( \%state );
 while ( @stack ) {
   my $state = pop @stack;
 
-  # Player turn. Do this before the spell choice loop, because active effects will reduce time and may increase mana.
+  # Player turn.
+
+  # For part 2, we need to do one more check before moving on with the rest.
+  $state->{'Player'}{'Hit Points'} -= 1;
+  if ( check_loss( $state ) ) {
+    next;
+  }
+
+  # Do this before the spell choice loop, because active effects will reduce time and may increase mana.
   apply_effects( $state );
   if ( check_win( $state ) ) {
     # dd $turn;
