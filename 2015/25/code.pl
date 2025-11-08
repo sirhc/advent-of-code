@@ -5,9 +5,9 @@ use strict;
 
 use Math::BigInt lib => 'GMP';
 
-my $first      = 20151125;
-my $multiplier = 252533;
-my $dividend   = 33554393;
+my $first      = Math::BigInt->new('20151125');
+my $multiplier = Math::BigInt->new('252533');
+my $dividend   = Math::BigInt->new('33554393');
 
 # Example.
 # for my $row ( 1 .. 6 ) {
