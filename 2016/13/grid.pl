@@ -28,6 +28,7 @@ while ( keys %open_set ) {
 
   # dd [ current => $current, neighbors => [ neighbors( $current, $favorite ) ] ];
 
+  # Part 1.
   if ( $current->[0] == $goal->[0] && $current->[1] == $goal->[1] ) {
     # dd { came_from => \%came_from };
 
@@ -42,6 +43,9 @@ while ( keys %open_set ) {
     say @total_path - 1;
     last;
   }
+
+  # Part 2.
+  # say join ' ', $g_score{ hkey($current) }, hkey($current);
 
   for my $neighbor ( neighbors( $current, $favorite ) ) {
     my $tentative_g_score = $g_score{ hkey($current) } + 1;  # all path weights are the same, it's a grid
