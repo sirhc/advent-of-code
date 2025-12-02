@@ -13,7 +13,7 @@ My first thought was that this could be a deceptively simple problem. However, t
 ❯ < input tr ',' '\n' | tr '-' ' ' | xargs -L1 seq | wc -l
 2070328
 
-❯ zsh invalid.zsh < example1
+❯ < example1 tr ',' '\n' | tr '-' ' ' | xargs -L1 seq | awk -f invalid1.awk
 > 1 1
 > 2 2
 > 9 9
@@ -24,7 +24,7 @@ My first thought was that this could be a deceptively simple problem. However, t
 > 3859 3859
 Sum: 1227775554
 
-❯ zsh invalid.zsh < input | tail
+❯ < input tr ',' '\n' | tr '-' ' ' | xargs -L1 seq | awk -f invalid1.awk
 > 7241 7241
 > 7242 7242
 > 7243 7243
