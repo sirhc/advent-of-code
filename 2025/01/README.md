@@ -50,3 +50,5 @@ we hit zero. It ran longer, but still finished in a couple of seconds. I left my
 
 Password for Part Two: 6638
 ```
+
+After submitting my solution, I looked at Reddit and found an explanation that reduced all of the edge cases I was coming up with.

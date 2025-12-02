@@ -31,48 +31,29 @@ part_two() {
   local line
   local init
 
-  printf '%-4s -> %2d (%4d)\n' S $dial $pass
-
   while read -r line; do
     init=$dial
-    last=$pass
+    dist=${line:1}
+    pass=$(( pass + dist / 100 ))  # for every 100 clicks, we're guaranteed to pass zero (note, we may start or land on zero)
 
-    case $line in
-      L*)
-        if (( ${line#L} >= 100 )); then
-          pass=$(( pass + ${line#L} / 100 - 1 - (init == 0 ? 1 : 0) ))  # for every 100 clicks, we're guaranteed to pass zero (starting on zero means one fewer passes)
-        fi
-        dial=$(( dial - ${line#L} ))
-        ;;
-      R*)
-        if (( ${line#R} >= 100 )); then
-          pass=$(( pass + ${line#R} / 100 - 1 - (init == 0 ? 1 : 0) ))
-        fi
-        dial=$(( dial + ${line#R} ))
-        ;;
-    esac
+    # If we turn the dial by a multiple of 100, we haven't changed position. Starting and landing on zero is accounted for above.
+    if (( dist % 100 != 0 )); then
+      case ${line:0:1} in
+        R) dist=$(( ( dist % 100 ) )) ;;
+        L) dist=$(( ( dist % 100 ) * -1 )) ;;
+      esac
 
-    # If we've gone negative, we passed zero, unless we started at zero. Multiple revolutions are handled above.
-    if (( dial < 0 && init != 0 )); then
-      pass=$(( pass + 1 ))
+      # Adjust the dial by the final offset.
+      dial=$(( dial + dist ))
+
+      if (( init != 0 && (dial <= 0 || dial > 99) )); then
+        pass=$(( pass + 1 ))
+      fi
+
+      dial=$(( ( dial % 100 + 100 ) % 100 ))
     fi
 
-    # If we've gone past 99, we passed zero. Unless our landing position is on zero, which we count later.
-    if (( dial > 99 && dial % 100 != 0 )); then
-      pass=$(( pass + 1 ))
-    fi
-
-    # Set the dial to the real position (e.g., -10 is actually 90).
-    dial=$(( ( dial % 100 + 100 ) % 100 ))
-
-    # We also need to count when we've landed on zero.
-    if (( dial == 0 )); then
-      pass=$(( pass + 1 ))
-    fi
-
-    if (( last != pass )); then
-      printf '%2d + %-4s -> %2d (%4d)\n' $init $line $dial $pass
-    fi
+    printf '%2d + %-4s -> %2d (%4d)\n' $init $line $dial $pass
   done
 
   printf '\nPassword for Part Two: %d\n' $pass
@@ -109,6 +90,6 @@ case "${1-one}" in
     part_one
     ;;
   2 | two | part2 | part_two )
-    part_two_loop
+    part_two
     ;;
 esac
