@@ -35,5 +35,8 @@ perl rtg.pl < input  27.63s user 0.12s system 99% cpu 27.902 total 154k max rss
 I suppose I should have seen this coming. How do you mess with people who wrote a breadth-first search? Throw extra states at them. Of course, the additional isotopes aren't real elements, so my
 fancy rendering function needs additional data.
 
+As I prepare for running part two, I ran part one on a MacBook Pro M1, instead of my Linux Intel(R) Core(TM) i7-8565U CPU @ 1.80GHz:
+
 ```
+perl rtg.pl < input  15.67s user 0.15s system 98% cpu 16.029 total 150272k max rss
 ```
