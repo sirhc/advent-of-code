@@ -33,5 +33,70 @@ x.x.@@@.x.
 
 ## Part Two
 
+Huh, that doesn't seem so bad. It feels like a simplified version of [Conway's Game of Life](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life).
+Maybe I can use my visualization code without changing it.
+
+When I run it on my input, it looks really cool. I'll need to find something to make an animation from it.
+
 ```
+❯ zsh remove.zsh example1 >> README.md
+..@@.@@@@.
+@@@.@.@.@@
+@@@@@.@.@@
+@.@@@@..@.
+@@.@@@@.@@
+.@@@@@@@.@
+.@.@.@.@@@
+@.@@@.@@@@
+.@@@@@@@@.
+@.@.@@@.@.
+
+..xx.xx@x.
+x@@.@.@.@@
+@@@@@.x.@@
+@.@@@@..@.
+x@.@@@@.@x
+.@@@@@@@.@
+.@.@.@.@@@
+x.@@@.@@@@
+.@@@@@@@@.
+x.x.@@@.x.
+
+Removed: 13
+
+[...]
+
+..........
+..........
+..x@@.....
+..@@@@....
+...@@@@...
+...@@@@@..
+...@.@.@@.
+...@@.@@@.
+...@@@@@x.
+....@@@...
+
+[...]
+
+Removed: 2
+
+..........
+..........
+..........
+....@@....
+...@@@@...
+...@@@@@..
+...@.@.@@.
+...@@.@@@.
+...@@@@@..
+....@@@...
+
+Removed: 0
+
+❯ zsh remove.zsh example1 | awk '$1 == "Removed:" { print $2 }' | paste -sd+ - | bc
+43
+
+❯ zsh remove.zsh input | awk '$1 == "Removed:" { print $2 }' | paste -sd+ - | bc
+8758
 ```
