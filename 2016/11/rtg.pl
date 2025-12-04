@@ -5,18 +5,11 @@ use strict;
 use Math::Combinatorics qw( combine );
 use Storable qw( dclone );
 
-use Data::Dump;
-
 my %elements = map { split } <DATA>;  # these are just for visualization purposes
 my %isotopes = ();
 
-# The first floor contains a hydrogen-compatible microchip and a lithium-compatible microchip.
-# The second floor contains a hydrogen generator.
-# The third floor contains a lithium generator.
-# The fourth floor contains nothing relevant.
-
 my $state = {
-  elevator => 0,
+  elevator => 2,
   floors   => [ [], [], [], [] ],
 };
 
@@ -28,7 +21,7 @@ while ( defined ( my $line = <> ) ) {
             : $1 eq 'fourth' ? 3
             :                  die "Unknown floor: $1";
 
-  while ( $line =~ /a (\w+)(?:-compatible)? (generator|microchip)/g ) {
+  while ( $line =~ /an? (\w+)(?:-compatible)? (generator|microchip)/g ) {
     my ( $element, $type ) = ( $1, $2 );
 
     $isotopes{ $elements{$element} } = 1;
@@ -39,9 +32,11 @@ while ( defined ( my $line = <> ) ) {
 
 my $iterations = 0;
 
+system 'setterm -cursor off';
 say render($state);
 say '';
 say 'Minimum number of moves: ', bfs($state);
+system 'setterm -cursor on';
 
 sub bfs {
   my $initial_state = shift;
@@ -56,12 +51,11 @@ sub bfs {
       
     # Return the depth of the search if the goal state is reached.
     if ( is_goal($state) ) {
-      print "\n";
+      print "\n\n";
       return $depth;
     }
 
-    print "Iteration: $iterations Depth: $depth\r";
-    $iterations++;
+    printf "Iteration: %7d : Depth: %3d : Queue: %3d\r", $iterations++, $depth, scalar @queue;
 
     # Generate and enqueue the next possible states.
     push @queue, map { [ $_, $depth + 1 ] } generate_moves($state);
@@ -268,3 +262,5 @@ livermorium   Lv
 tennessine    Ts
 oganesson     Og
 ununennium    Uue
+elerium       El
+dilithium     Di
