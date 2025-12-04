@@ -32,11 +32,11 @@ while ( defined ( my $line = <> ) ) {
 
 my $iterations = 0;
 
-system 'setterm -cursor off';
+printf "\e[?25l";  # hide the cursor
 say render($state);
 say '';
 say 'Minimum number of moves: ', bfs($state);
-system 'setterm -cursor on';
+printf "\e[?25h";  # show the cursor
 
 sub bfs {
   my $initial_state = shift;
