@@ -9,7 +9,7 @@ my %elements = map { split } <DATA>;  # these are just for visualization purpose
 my %isotopes = ();
 
 my $state = {
-  elevator => 2,
+  elevator => 0,
   floors   => [ [], [], [], [] ],
 };
 
