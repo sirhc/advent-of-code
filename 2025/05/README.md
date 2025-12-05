@@ -47,5 +47,37 @@ Which one I'll use for part two depends heavily on what twist it includes.
 
 ## Part Two
 
+Oh fun, now we get to also implement subtraction from first principles. However, that's not the hard part. We need to deal with overlapping ranges. For example, the
+ranges [16, 20] and [12, 18] overlap. A naïve approach would count the numbers 16, 17, and 18 twice, resulting in 12 values. The appropriate range is [12, 20], which is
+only 9 values.
+
+I did perform a quick check to ensure all the ranges were valid (i.e., the left is less than or equal to the right), because you never know when a wrench is going to be
+thrown at your assumptions.
+
+To keep things simple, I tackled this problem in two stages. First, I wrote a program to merge the ranges, which prints the new ranges. Second, I wrote a program to
+consume this list and do the math. I was too lazy by this point to write a subtraction algorithm, so I just went with Math::BigInt. After some struggles with getting my
+range merge algorithm correct (I had the low-end logic correct, but neglected the high-end), I finally got the right answer.
+
 ```
+❯ perl merge-bigint.pl < example
+3-5
+10-20
+
+❯ perl merge-bigint.pl < example | perl count-bigint.pl
+3-5 -> 3
+10-20 -> 11
+
+Total -> 14
+
+❯ perl merge-bigint.pl < input | perl count-bigint.pl | tail
+515752861706117-517240983163832 -> 1488121457716
+518403209093753-520309798449606 -> 1906589355854
+521809155835321-522375822931678 -> 566667096358
+523251556997713-528465263347348 -> 5213706349636
+528465263347349-528465263347349 -> 1
+534734110721133-538440891280125 -> 3706780558993
+544025462998588-550837866031455 -> 6812403032868
+553747923986102-560123885472494 -> 6375961486393
+
+Total -> 344423158480189
 ```
