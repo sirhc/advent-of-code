@@ -5,10 +5,15 @@ use strict;
 
 use Digest::MD5 qw( md5_hex );
 
-my $salt  = shift @ARGV // 'abc';
-my $count = shift @ARGV // 1_000_000;
-my $index = 0;
+my $salt    = shift @ARGV // 'abc';
+my $count   = shift @ARGV // 25_000;
+my $stretch = shift @ARGV // 0;
+my $index   = 0;
 
 while ( $index < $count ) {
-  say md5_hex( $salt . $index++ );
+  my $hash = md5_hex( $salt . $index++ );
+
+  $hash = md5_hex( $hash ) for 1 .. $stretch;  # part two
+
+  say $hash;
 }

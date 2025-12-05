@@ -49,12 +49,13 @@ index hash                             validator_index validator_hash
 Oh man am I glad I took that advice and calculated hashes ahead of time. It will take a while to generate the new set of hashes, but at least I only have to do it once.
 
 ```
-❯ perl generate2.pl $( cat example ) 23000 > example2.md5
-❯ perl validate.pl < example2.md5 | mlr --c2p tail
+❯ perl generate.pl $( cat example ) 23000 2016 > example2.md5
+
+❯ perl validate.pl < example2.md5 | mlr --c2p sort -n index then head -n 64 then tail
 index hash                             validator_index validator_hash
-19880 055578105213a1cd3de06696d308d0a6 20015           52ff1eae704f55555dec14f8e5040b73
-19366 37d877d32bdbc3580db5afcfa7666339 20330           39ed4edb214e59811d03ce3666669533
+19498 b6c4ffe1dac975558234705709a0854d 20015           52ff1eae704f55555dec14f8e5040b73
 19799 d626ebe07e35bdd64658de522845666d 20330           39ed4edb214e59811d03ce3666669533
+19880 055578105213a1cd3de06696d308d0a6 20015           52ff1eae704f55555dec14f8e5040b73
 19915 109096f32bc54743c76666499f47cf8b 20330           39ed4edb214e59811d03ce3666669533
 19947 f90405a11032ec10f1f62b666b68365b 20330           39ed4edb214e59811d03ce3666669533
 19950 54c6665cd0f258a2ea8e27cec15685e2 20330           39ed4edb214e59811d03ce3666669533
@@ -64,12 +65,20 @@ index hash                             validator_index validator_hash
 22551 2df6e9378c3c53abed6d3508b6285fff 22859           2e559978fffff9ac9c9012eb764c6391
 ```
 
-This is frustrating. My own code, which works on other inputs, gives an answer of 20219, which is too high. I tried Perl and Python code from two other Reddit users and got the same answer. A
-third user's code, written in go, gave me the correct answer of 20092. I don't know why yet, but I'm going to find out. The Go code results in the same hashes, except near the end.
+This is frustrating. My own code, which works on other inputs, gives an answer of 20219, which is too high. I tried Perl and Python code from two other Reddit users and
+got the same answer. A third user's code, written in go, gave me the correct answer of 20092. I don't know why yet, but I'm going to find out. The Go code results in the
+same hashes, except near the end.
+
+For reference and credit, the source of the code I tested from Reddit:
+
+- [Perl](https://www.reddit.com/r/adventofcode/comments/5i8pzz/comment/dboa003/)
+- [Python](https://www.reddit.com/r/adventofcode/comments/5i8pzz/comment/db6zsff/)
+- [Go](https://www.reddit.com/r/adventofcode/comments/5i8pzz/comment/db6yiog/)
 
 ```
-❯ perl generate2.pl $( cat input ) 50000 > input2.md5
-❯ perl validate.pl < input2.md5 | mlr --c2p head -n 64 then tail
+❯ perl generate.pl $( cat input ) 25000 2016 > input2.md5
+
+❯ perl validate.pl < input2.md5 | mlr --c2p sort -n index then head -n 64 then tail
 index hash                             validator_index validator_hash
 17741 948ccba541a2e6ce1397778e7625e02b 17767           a477777b842cf288c041842a44a891b1
 18171 3732b590a59c69f8d2d728886725a33e 19150           43575657e55a1484b3388888c2a8ab4a

@@ -32,4 +32,4 @@ while ( defined ( my $hash = <> ) ) {
 }
 
 say join ',', 'index', 'hash', 'validator_index', 'validator_hash';
-say ( join ',', @{ $_ }[0,1,4,5] ) for sort { $a->[0] <=> $b->[0] } @validated;
+say ( join ',', @{ $_ }[0,1,4,5] ) for @validated;
