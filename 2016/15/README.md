@@ -25,5 +25,19 @@ time=400595 disc6=0
 
 ## Part Two
 
+Oh, complexity my old friend...
+
+There's probably a formula for this, but here we are. Though I do like when I don't have to update my code to solve part two.
+
 ```
+❯ perl timing.pl < input2 | tail -8
+time=3045959
+time=3045960 disc1=0
+time=3045961 disc2=0
+time=3045962 disc3=0
+time=3045963 disc4=0
+time=3045964 disc5=0
+time=3045965 disc6=0
+time=3045966 disc7=0
+perl timing.pl < input2  6.61s user 0.16s system 75% cpu 9.015 total 3824k max rss
 ```
