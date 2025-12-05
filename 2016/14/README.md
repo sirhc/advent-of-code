@@ -49,7 +49,7 @@ index hash                             validator_index validator_hash
 Oh man am I glad I took that advice and calculated hashes ahead of time. It will take a while to generate the new set of hashes, but at least I only have to do it once.
 
 ```
-❯ perl generate.pl $( cat example ) 23000 2016 > example2.md5
+❯ perl generate.pl $( cat example ) 25000 2016 > example2.md5
 
 ❯ perl validate.pl < example2.md5 | mlr --c2p sort -n index then head -n 64 then tail
 index hash                             validator_index validator_hash
@@ -90,4 +90,23 @@ index hash                             validator_index validator_hash
 20153 cfd9928ccc573465988477f2f51d39c1 20862           7977324bbbcd35f2ccccc6cc70beb822
 20199 ccc4651ac892d91dd2b6add0b6318ff0 20862           7977324bbbcd35f2ccccc6cc70beb822
 20219 bfde477810af65a0304b2ef5b7ccc8ef 20862           7977324bbbcd35f2ccccc6cc70beb822
+```
+
+It took me a while, but I finally figured out the bug. I was waiting until I encountered a hash to validate prior hashes. However, when I encounter a potential hash, I
+need to look forward 1000 hashes *at the time it is encountered*. Otherwise, I may select later hashes based purely on luck. Having generated all hashes ahead of time,
+this shouldn't be too difficult to correct and even simplifies the code, since I no longer need to maintain state.
+
+```
+❯ perl validate.pl < input2.md5 | mlr --c2p label index,hash,validator_index,validator_hash then tail
+index hash                             validator_index validator_hash
+17741 948ccba541a2e6ce1397778e7625e02b 17767           a477777b842cf288c041842a44a891b1
+18171 3732b590a59c69f8d2d728886725a33e 19150           43575657e55a1484b3388888c2a8ab4a
+18193 56e5cb47888f6c35f308ba3e8bb626af 19150           43575657e55a1484b3388888c2a8ab4a
+18240 ef8886c4390493a303b6c70dbf5006f7 19150           43575657e55a1484b3388888c2a8ab4a
+18492 c6ef797888e205095f46993acaff5b93 19150           43575657e55a1484b3388888c2a8ab4a
+18540 74eae85f88810ac849c92757902b06db 19150           43575657e55a1484b3388888c2a8ab4a
+18876 f783fc6ef5acc243d98880254750c5ee 19150           43575657e55a1484b3388888c2a8ab4a
+20021 d25f2dd0d578f8bbd8d19f15444054d2 20904           64c6044444d7a72d8c37d8bb2d4a90fc
+20027 90d20354448bb37806106ef69d63f57a 20904           64c6044444d7a72d8c37d8bb2d4a90fc
+20092 0192059360a06c82e5444db43320d17a 20904           64c6044444d7a72d8c37d8bb2d4a90fc
 ```
