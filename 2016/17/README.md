@@ -15,5 +15,10 @@ Whew. It worked the first try, so I don't have a lot of debugging to do.
 
 ## Part Two
 
+Well, like I said, at least the grid is small. After modifying my code to save all paths:
+
 ```
+❯ perl vault.pl `cat input`
+DUDRDLRRRD
+502
 ```
