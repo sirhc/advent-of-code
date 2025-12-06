@@ -46,5 +46,11 @@ Okay, now that I've poked at this for an hour, I can code my solution.
 
 ## Part Two
 
+Okay, I cheated. I knew there had to be another pattern to this one, but was way too lazy to figure it out. I looked over the Reddit discussion and found the following formula. But now I want to
+know *why* it works. I ended up asking Gemini to explain the Josephus Problem when eliminating people "across" the circle. I understand the algorithm now and that there isn't a formula, due to
+`k` changing each round. It'd be interesting to write some code to visualize the process, but I'm satisfied that I've learned something, tired, and ready to move on.
+
 ```
+❯ perl -nlE '$i = 1; $i *= 3 while $i * 3 < $_; say $_ - $i' < input
+1420064
 ```
