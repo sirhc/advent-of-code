@@ -26,5 +26,12 @@ As luck would have it, today is [2025 Day 5](https://adventofcode.com/2025/day/5
 
 ## Part Two
 
+Since I already have the ranges merged and sorted, I can just sum the gaps.
+
 ```
+❯ perl merge.pl < example | perl count.pl 9
+2
+
+❯ perl merge.pl < input | perl count.pl
+125
 ```
