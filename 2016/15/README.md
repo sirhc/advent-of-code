@@ -23,6 +23,13 @@ time=400594 disc5=0
 time=400595 disc6=0
 ```
 
+After looking at the Reddit discussion, it seems obvious that I should question how much time that is.
+
+```
+❯ gdate -u -d @400589 +"$(( 400589/3600/24 )) days %H hours %M minutes %S seconds"
+4 days 15 hours 16 minutes 29 seconds
+```
+
 ## Part Two
 
 Oh, complexity my old friend...
@@ -40,4 +47,7 @@ time=3045964 disc5=0
 time=3045965 disc6=0
 time=3045966 disc7=0
 perl timing.pl < input2  6.61s user 0.16s system 75% cpu 9.015 total 3824k max rss
+
+❯ gdate -u -d @3045959 +"$(( 3045959/3600/24 )) days %H hours %M minutes %S seconds"
+35 days 06 hours 05 minutes 59 seconds
 ```
