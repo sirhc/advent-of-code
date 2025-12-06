@@ -36,5 +36,34 @@ https://adventofcode.com/2025/day/6
 
 ## Part Two
 
+I knew when I read "the left/right alignment of numbers within each problem can be ignored" in part one that we would, in fact, need to consider it in part two.
+
 ```
+❯ perl math2.pl < example
++ 4 431 623
+= 1058
+* 175 581 32
+= 3253600
++ 8 248 369
+= 625
+* 356 24 1
+= 8544
+
+❯ perl math2.pl < example | awk '$1 == "=" { print $2 }' | paste -sd+ - | bc
+3263827
+
+❯ perl math2.pl < input | head
++ 64 879 5212
+= 6155
+* 3852 754 59
+= 171360072
+* 9765 244 7
+= 16678620
+* 63 8653
+= 545139
++ 5253 88
+= 5341
+
+❯ perl math2.pl < input | awk '$1 == "=" { print $2 }' | paste -sd+ - | bc
+8674740488592
 ```
