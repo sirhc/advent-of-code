@@ -5,7 +5,7 @@ use strict;
 use Memoize;
 no Smart::Comments;
 
-memoize( 'get_row' );
+memoize('next_row');
 
 ### assert: not is_trap( '..^^.', 0 )
 ### assert:     is_trap( '..^^.', 1 )
@@ -32,7 +32,10 @@ memoize( 'get_row' );
 my $rows  = shift // die 'missing number of rows';
 my $input = <>; chomp $input;
 
-say get_row( $input, $_ ) for 0 .. $rows - 1;
+while ( $rows-- > 0 ) {
+  say $input;
+  $input = next_row( $input );
+}
 
 sub get_row {
   my ( $row, $num ) = @_;

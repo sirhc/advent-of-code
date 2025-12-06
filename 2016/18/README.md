@@ -84,5 +84,10 @@ I wonder if everyone's answer was the same for this one?
 
 ## Part Two
 
+Even with the memoization, my laziness in part one needs to be corrected. By memoizing the `next_row()` function instead and calling it iteratively, I can speed things up enough to handle
+400,000 rows.
+
 ```
+❯ perl rogue.pl 400000 < input | grep -o '\.' | wc -l
+19998750
 ```
