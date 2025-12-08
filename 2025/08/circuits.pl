@@ -2,6 +2,7 @@
 
 use v5.40;
 use strict;
+use List::Util qw( uniq );
 
 my $c = 0;
 my $connections = shift // die 'missing connection count';
@@ -16,12 +17,21 @@ for my $i ( 0 .. $#junctions ) {
 
 @distances = sort { $b->[0] <=> $a->[0] } @distances;
 
-while ( $connections --> 0 ) {
+for my $n  ( 1 .. $connections ) {
   my $connection = pop @distances;
   my $i = $junctions[ $connection->[1] ];
   my $j = $junctions[ $connection->[2] ];
 
   $_->[3] = $j->[3] for grep { $_->[3] == $i->[3] } @junctions;  # add $i to $j's circuit
+
+  my $circuits = uniq map { $_->[3] } @junctions;
+
+  if ( $circuits == 1 ) {
+    say sprintf 'Number of connections : %d', $n;
+    say sprintf 'Final connection      : %s and %s', ( join ',', @{$i}[0, 1, 2] ), ( join ',', @{$j}[0, 1, 2] );
+    say '';
+    last;
+  }
 }
 
 say for map { sprintf '%-17s => %d', ( join ',', @{ $_ }[0, 1, 2] ), $_->[3] } @junctions;

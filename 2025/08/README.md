@@ -66,5 +66,37 @@ off-by-one errors while testing the example.
 
 ## Part Two
 
+To accomplish part two, I modified my code slightly to print some information and bail out if it detects that only one circuit exists. This allows me to provide a value
+for `n` much higher than I anticipate needing while preserving the rest of the code (though the above one-liners will need modification to exclude the additional lines).
+
 ```
+❯ perl circuits.pl 1000 < example | head
+Number of connections : 29
+Final connection      : 216,146,977 and 117,168,530
+
+162,817,812       => 15
+57,618,57         => 15
+906,360,560       => 15
+592,479,940       => 15
+352,342,300       => 15
+466,668,158       => 15
+542,29,236        => 15
+
+❯ echo '216 * 117' | bc
+25272
+
+❯ perl circuits.pl 10000 < input | head
+Number of connections : 5492
+Final connection      : 30181,15729,8194 and 25594,2972,13222
+
+62481,24370,53899 => 847
+66340,66361,12487 => 847
+82829,41567,50460 => 847
+88731,67035,17931 => 847
+59963,32380,72202 => 847
+11358,27461,47584 => 847
+78416,48279,4367  => 847
+
+❯ echo '30181 * 25594' | bc
+772452514
 ```
