@@ -34,5 +34,15 @@ swap position 4 with position 6      => bgfacdeh
 
 ## Part Two
 
+In the grand tradition of brute-forcing passwords, I decided I was too lazy to figure out the inverse of the rotation-based-on-letter rule. Ultimately, it took about two
+minutes to run.
+
 ```
+❯ perl -MMath::Combinatorics=permute -E 'say join "", @$_ for permute( split //, shift )' fbgdceah | wc -l
+   40320
+
+❯ perl -MMath::Combinatorics=permute -E 'say join "", @$_ for permute( split //, shift )' fbgdceah |
+  parallel --jobs 60 --tag 'perl scramble.pl {} < input | tail -1 | awk "{ print \$NF }"' |
+  awk '$2 == "fbgdceah"'
+bdgheacf	fbgdceah
 ```
