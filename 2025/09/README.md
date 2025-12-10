@@ -73,3 +73,32 @@ perl area.pl 2 < input  12.25s user 0.07s system 99% cpu 12.329 total 32112k max
 ```
 
 No such luck.
+
+After skimming Reddit, I thought to plot my own input. Why the `2096`? After seeing the plot the first time, I wondered if there would be more than two tiles in any
+given horizontal or vertical line. There were no more than two tiles with the same x coordinates, but there were four tiles with the same y coordinates. I wanted to see
+if this would pose an additional problem.
+
+```
+❯ awk -F, '$2 == "2096"' input | gnuplot -e 'set terminal png size 1024,768' -e 'set output "theater.png"' -e 'set datafile separator ","' -e 'plot "input", "/dev/stdin"'
+```
+
+![A rough plot of the tile locations in the movie theater.](theater.png)
+
+After plotting the input, it becomes clear that the tiles are laid out in a large circle, roughly. There are also two tiles that create a long horizontal gap bisecting
+the circle, reminiscent of the meridian trench on the Death Star. At the end of this trench was the exhaust port. In any case, it stands to reason that a rectangle of
+the largest area must have one corner at one of these two tiles. That dramatically reduces the search space and generally simplifies the problem. For my input, this
+reduces the number of rectangles to 436. Of those, only 44 are completely contained within the circle, and it looks like our winner is in the lower half of the circle.
+
+```
+❯ perl area.pl 2 < input | sort -n | column -t | tail
+1172452083  94727,48597  4671,35579
+1181278965  94727,48597  3993,35579
+1249603920  4608,64043   94727,50178
+1279527210  94727,48597  4842,34363
+1281961395  94727,48597  4671,34363
+1372203288  94727,48597  5322,33250
+1372815759  4725,65430   94727,50178
+1379570328  94727,48597  4842,33250
+1464982850  5318,66562   94727,50178
+1474699155  4725,66562   94727,50178
+```
