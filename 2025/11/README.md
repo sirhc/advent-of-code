@@ -31,5 +31,34 @@ you: ohe xgp ohe xgp jta xgp jta xgp rki jta rki ohe jta rki ohe ohe xgp rki xrf
 
 ## Part Two
 
+Now I wish I had spent time printing each path in part one. I'd already be done with part two. Oh well, it's an excuse to go back and do what I wanted to do anyway. Just
+for fun, I tried my new program on part one as well.
+
 ```
+❯ perl paths2.pl you out < input | wc -l
+     690
+
+❯ perl paths2.pl svr out < example2
+svr,aaa,fft,ccc,ddd,hub,fff,ggg,out
+svr,aaa,fft,ccc,ddd,hub,fff,hhh,out
+svr,aaa,fft,ccc,eee,dac,fff,ggg,out
+svr,aaa,fft,ccc,eee,dac,fff,hhh,out
+svr,bbb,tty,ccc,ddd,hub,fff,ggg,out
+svr,bbb,tty,ccc,ddd,hub,fff,hhh,out
+svr,bbb,tty,ccc,eee,dac,fff,ggg,out
+svr,bbb,tty,ccc,eee,dac,fff,hhh,out
+
+❯ perl paths2.pl svr out < example2 | grep ,dac, | grep -c ,fft,
+2
 ```
+
+As much as I would love to use this on my input, there are far too many paths to list them all in a reasonable amount of time. Instead, I need to create a solution that
+can take advantage of memoization.
+
+```
+❯ time perl paths3.pl svr out < input
+svr -> out : 557332758684000
+perl paths3.pl svr out < input  0.01s user 0.01s system 78% cpu 0.026 total 6560k max rss
+```
+
+Ah yes, over 557 trillion paths. Probably best that I changed my approach.
