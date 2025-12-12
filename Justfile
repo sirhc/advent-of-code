@@ -15,7 +15,7 @@ get-input year=file_name(parent_directory(invocation_directory())) day=file_name
 make-readme year=file_name(parent_directory(invocation_directory())) day=file_name(invocation_directory()):
   #!/usr/bin/env -S zsh
   printf '# '
-  {{ https }} adventofcode.com/{{ year }}/day/{{ trim_start_match(day, '0') }} "Cookie:session=$session" | pup 'h2 text{}' | sed -e 's/ *--- *//g' | head -1
+  {{ https }} adventofcode.com/{{ year }}/day/{{ trim_start_match(day, '0') }} "Cookie:session=$session" | html1 -t 'h2' | sed -e 's/ *--- *//g' | head -1
   print
   print 'https://adventofcode.com/{{ year }}/day/{{ trim_start_match(day, '0') }}'
   print
@@ -28,3 +28,7 @@ make-readme year=file_name(parent_directory(invocation_directory())) day=file_na
   print
   print '```'
   print '```'
+
+[no-cd]
+easter-egg year=file_name(parent_directory(invocation_directory())) day=file_name(invocation_directory()):
+  {{ https }} adventofcode.com/{{ year }}/day/{{ trim_start_match(day, '0') }} "Cookie:session=$session" | htmlq 'span[title]'
