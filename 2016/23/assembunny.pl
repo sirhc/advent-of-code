@@ -4,11 +4,12 @@ use v5.40;
 use strict;
 use Data::Dump;
 
+my $init         = shift // 7;
 my %register     = map { $_ => 0 } qw( a b c d );
 my @instructions = map { chomp; [ split / / ] } <>;
 my $pointer      = 0;
 
-$register{'a'} = 7;
+$register{'a'} = $init;
 
 say 'Before:';
 dd \@instructions, \%register;
@@ -25,6 +26,28 @@ while ( $pointer >= 0 && $pointer <= $#instructions ) {
 
   # inc x -> increases the value of register x by one
   if ( $instruction eq 'inc' ) {
+    # I feel dirty just writing this.
+    #
+    # inc a
+    # dec c
+    # jnz c -2
+    # dec d
+    # jnz d -5
+    my @next = @instructions[ $pointer .. $pointer + 4 ];
+    my $hack = $args[0] eq 'a'
+            && $next[1][0] eq 'dec'
+            && $next[2][0] eq 'jnz' && $next[2][2] == -2
+            && $next[3][0] eq 'dec'
+            && $next[4][0] eq 'jnz' && $next[4][2] == -5;
+
+    if ( $hack ) {
+      register( 'a', register('a') + register( $next[1][1] ) * register( $next[3][1] ) );
+      register( $next[1][1], 0 );
+      register( $next[3][1], 0 );
+      $pointer += 5;
+      next;
+    }
+
     register( $args[0], register( $args[0] ) + 1 );
     $pointer++;
     next;
