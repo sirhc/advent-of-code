@@ -3,8 +3,6 @@
 use v5.40;
 use strict;
 
-use Data::Dump;
-
 my $grid = [];
 
 while ( my $line = <> ) {
