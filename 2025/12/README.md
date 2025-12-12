@@ -44,5 +44,4 @@ Honestly, my favorite part of Advent of Code is writing parsers for the input an
 
 ## Part Two
 
-```
-```
+Merry Christmas!
