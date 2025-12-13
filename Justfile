@@ -1,21 +1,23 @@
 set dotenv-load
 set shell := [ 'zsh', '-cu', '-o', 'pipefail' ]
 
-https := 'https --check-status --ignore-stdin --timeout=30'
-
-_default:
+htmlq := require('htmlq')
+https := require('https')
 
 # .../github.com/sirhc/advent-of-code/2024/05 -> https://adventofcode.com/2024/day/5/input
+year  := file_name(parent_directory(absolute_path('.')))
+day   := trim_start_match(file_name(absolute_path('.')), '0')
 
-[no-cd]
-get-input year=file_name(parent_directory(invocation_directory())) day=file_name(invocation_directory()):
-  {{ https }} adventofcode.com/{{ year }}/day/{{ trim_start_match(day, '0') }}/input "Cookie:session=$session"
+_default:
+  # https://adventofcode.com/{{ year }}/day/{{ day }}
 
-[no-cd]
-make-readme year=file_name(parent_directory(invocation_directory())) day=file_name(invocation_directory()):
+get-input:
+  {{ https }} adventofcode.com/{{ year }}/day/{{ day }}/input "Cookie:session=$session"
+
+make-readme:
   #!/usr/bin/env -S zsh
-  printf '# '
-  {{ https }} adventofcode.com/{{ year }}/day/{{ trim_start_match(day, '0') }} "Cookie:session=$session" | htmlq -t 'h2' | sed -e 's/ *--- *//g' | head -1
+  print -n '# '
+  {{ https }} adventofcode.com/{{ year }}/day/{{ day }} "Cookie:session=$session" | {{ htmlq }} -t 'h2' | sed -e 's/ *--- *//g' | head -1
   print
   print 'https://adventofcode.com/{{ year }}/day/{{ trim_start_match(day, '0') }}'
   print
@@ -29,6 +31,5 @@ make-readme year=file_name(parent_directory(invocation_directory())) day=file_na
   print '```'
   print '```'
 
-[no-cd]
-easter-egg year=file_name(parent_directory(invocation_directory())) day=file_name(invocation_directory()):
-  {{ https }} adventofcode.com/{{ year }}/day/{{ trim_start_match(day, '0') }} "Cookie:session=$session" | htmlq 'span[title]'
+easter-egg:
+  {{ https }} adventofcode.com/{{ year }}/day/{{ day }} "Cookie:session=$session" | {{ htmlq }} 'span[title]'
