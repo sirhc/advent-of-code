@@ -5,8 +5,8 @@ htmlq := require('htmlq')
 https := require('https')
 
 # .../github.com/sirhc/advent-of-code/2024/05 -> https://adventofcode.com/2024/day/5/input
-year  := file_name(parent_directory(absolute_path('.')))
-day   := trim_start_match(file_name(absolute_path('.')), '0')
+year  := file_name(parent_directory(invocation_directory()))
+day   := trim_start_match(file_name(invocation_directory()), '0')
 
 _default:
   # https://adventofcode.com/{{ year }}/day/{{ day }}
