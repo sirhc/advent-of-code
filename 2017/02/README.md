@@ -21,9 +21,9 @@ Huh, that's interesting, the input is tab-delimited.
 Some proper loops would have made this easy enough, but I always have to use functional-style programming...
 
 ```
-❯ perl checksum2.pl < example2
+❯ PART=2 perl checksum.pl < example2
 9
 
-❯ perl checksum2.pl < input
+❯ PART=2 perl checksum.pl < input
 197
 ```
