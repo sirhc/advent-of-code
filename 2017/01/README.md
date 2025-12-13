@@ -19,5 +19,13 @@ All right, starting out easy. I'm circling back to years I missed after wrapping
 
 ## Part Two
 
+Fortunately, the modulus doesn't change, just the offset we use. I assume this was done to catch people who used a condition to check if they were at the end instead of using modulus arithmetic.
+
 ```
+❯ PART=2 perl captcha.pl < example2
+6
+0
+4
+12
+4
 ```
