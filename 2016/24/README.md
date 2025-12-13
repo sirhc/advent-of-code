@@ -8,7 +8,7 @@ Oh boy, the [traveling salesman problem](https://en.wikipedia.org/wiki/Travellin
 we're allowed to revisit locations. That last bit makes me wonder if I'll be able to benefit from trimming paths.
 
 My breadth-first search works well enough for the example. Unsurprisingly, not coming up with a way to prune paths caused my breadth-first search to run my laptop out of memory. Then I realized
-that there is a way to keep track of visited locations. A locations can be considered visited if we've been there before _and_ we've visited the same set of HVAC points. Doing that dropped my run
+that there is a way to keep track of visited locations. A location can be considered visited if we've been there before _and_ we've visited the same set of HVAC points. Doing that dropped my run
 time to under 3 seconds.
 
 That was a little too easy. Now I'm concerned about part two.
