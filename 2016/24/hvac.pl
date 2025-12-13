@@ -3,6 +3,7 @@
 use v5.40;
 use strict;
 
+my $part      = $ENV{PART} // 1;
 my $blueprint = [ map { chomp; [ split // ] } <> ];
 my @points    = find_points($blueprint);
 
@@ -18,7 +19,12 @@ while ( @queue ) {
 
   next if $visited{ join ',', @$location, @$visited }++;
 
-  if ( visited_all($visited) ) {
+  if ( $part == 1 && visited_all($visited) ) {
+    say $distance;
+    last;
+  }
+
+  if ( $part == 2 && visited_all($visited) && $blueprint->[ $location->[0] ][ $location->[1] ] eq '0' ) {
     say $distance;
     last;
   }

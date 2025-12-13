@@ -23,5 +23,9 @@ That was a little too easy. Now I'm concerned about part two.
 
 ## Part Two
 
+Oh, that wasn't as bad as I thought. All I had to do was add a second goal condition. This time it took a bit under 5 seconds to find the solution.
+
 ```
+❯ PART=2 perl hvac.pl < input
+744
 ```
