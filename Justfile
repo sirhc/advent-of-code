@@ -33,3 +33,9 @@ make-readme:
 
 easter-egg:
   {{ https }} adventofcode.com/{{ year }}/day/{{ day }} "Cookie:session=$session" | {{ htmlq }} 'span[title]'
+
+store-session:
+  sed -e '/^session=/d' -i .env
+  printf 'session=%s\n' \
+    "$( sqlite3 -batch -noheader -csv "file:${profile}/cookies.sqlite?immutable=1" "SELECT value FROM moz_cookies WHERE name = 'session' AND host = '.adventofcode.com'" )" \
+    >> .env
