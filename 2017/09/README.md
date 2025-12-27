@@ -24,5 +24,18 @@ matter for this approach, so I can ignore them.
 
 ## Part Two
 
+Fortunately, the design of my parser made it easy to add a line to keep track of the number of garbage characters.
+
 ```
+❯ perl stream.pl < example2
+0, 0
+0, 17
+0, 3
+0, 2
+0, 0
+0, 0
+0, 10
+
+❯ perl stream.pl < input
+12396, 6346
 ```
