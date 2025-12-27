@@ -30,5 +30,13 @@ This isn't a terribly difficult problem. There are probably some off-by-one erro
 
 ## Part Two
 
+It seems my penchant for printing information as I go solved this problem for me.
+
 ```
+❯ perl loop.pl < input | grep '1 1 0 15 14 13 12 10 10 9 8 7 6 4 3 5'
+11264: 1 1 0 15 14 13 12 10 10 9 8 7 6 4 3 5
+14029: 1 1 0 15 14 13 12 10 10 9 8 7 6 4 3 5
+
+❯ bc <<< 14029-11264
+2765
 ```
