@@ -16,5 +16,12 @@ I was going to write a program to print the jump table in a pretty format the sa
 
 ## Part Two
 
+A simple enough modification to the first part.
+
 ```
+❯ perl jump.pl 2 < example
+10
+
+❯ perl jump.pl 2 < input
+28707598
 ```
