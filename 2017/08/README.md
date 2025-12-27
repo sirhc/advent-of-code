@@ -26,5 +26,24 @@ jt   5075
 
 ## Part Two
 
+This is a simple adjustment to my code to keep track of the highest value seen so far. Fortunately, I wrote my code such that the value of the updated register was being returned as a side-effect
+and I was just ignoring it before.
+
 ```
+❯ perl registers.pl < example
+10
+c     -10
+a       1
+
+❯ perl registers.pl < input | head
+7310
+aj  -6415
+cc  -3611
+qvk -3590
+uol -3112
+zz  -2459
+z   -2311
+tft -2294
+zsx -2116
+ykm -1590
 ```
